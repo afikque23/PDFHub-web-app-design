@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model User {
+  id        String   @id @default(uuid())
+  fullName  String?
+  email     String   @unique
+  avatarUrl String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  files     File[]
+  processingJobs ProcessingJob[]
+
+  @@map("users")
+}
+
+enum FileStatus {
+  UPLOADING
+  UPLOADED
+  PROCESSING
+  COMPLETED
+  FAILED
+  DELETED
+}
+
+model File {
+  id           String     @id @default(uuid())
+  userId       String
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  originalName String
+  storedName   String     @unique
+  mimeType     String
+  extension    String
+  size         Int
+  bucket       String
+  storagePath  String
+  publicUrl    String?
+  status       FileStatus @default(UPLOADING)
+  hash         String
+  width        Int?
+  height       Int?
+  pages        Int?
+  
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([userId, hash]) // Mencegah user upload file duplikat dengan hash yang sama
+  @@map("files")
+}
+
+enum JobStatus {
+  WAITING
+  QUEUED
+  DOWNLOADING
+  PROCESSING
+  UPLOADING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum JobPriority {
+  LOW
+  NORMAL
+  HIGH
+}
+
+model ProcessingJob {
+  id             String    @id @default(uuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  inputFileIds   String[]
+  outputFileId   String?
+  tool           String
+  status         JobStatus   @default(WAITING)
+  priority       JobPriority @default(NORMAL)
+  progress       Int         @default(0)
+  options        Json?
+  workerId       String?
+  startedAt      DateTime?
+  completedAt    DateTime?
+  processingTime Int?
+  errorMessage   String?
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@map("processing_jobs")
+}

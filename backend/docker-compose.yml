@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  pdfhub-worker:
+    container_name: pdfhub-worker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./temp:/app/temp
+      - ./logs:/app/logs
+      - ./uploads:/app/uploads
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
