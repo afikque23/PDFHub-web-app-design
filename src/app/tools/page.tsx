@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { toolsData } from "../data/tools";
-import { Search, Sparkles, ArrowRight } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 
 export default function AllToolsPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,9 +55,6 @@ export default function AllToolsPage() {
       <div className="max-w-[1440px] mx-auto space-y-12">
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold">
-            <Sparkles size={14} /> PDFHub Suite
-          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-text-primary tracking-tight">
             Semua PDF Tools
           </h1>

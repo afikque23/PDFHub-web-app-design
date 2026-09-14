@@ -12,6 +12,13 @@ const outfit = Outfit({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "PDFHub - Modern PDF Processing Platform",
   description: "Merge, Split, Compress, Rotate, Watermark, Convert and OCR your PDFs securely and lightning fast.",
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
   manifest: "/manifest.json",
   openGraph: {
     title: "PDFHub - Modern PDF Processing Platform",
