@@ -19,7 +19,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
             <Button size="lg" className="w-full sm:w-auto" asChild>
-              <Link href="/tools/merge-pdf">Start Using Tools</Link>
+              <Link href="/tools">Start Using Tools</Link>
             </Button>
             <Button size="lg" variant="secondary" className="w-full sm:w-auto" asChild>
               <a href="#all-tools">Explore All Tools</a>
