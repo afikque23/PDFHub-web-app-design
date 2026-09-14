@@ -1,12 +1,4 @@
 import type { NextConfig } from "next";
-import { withSentryConfig } from '@sentry/nextjs';
-// @ts-ignore
-import withPWAInit from 'next-pwa';
-
-const withPWA = withPWAInit({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-});
 
 const cspHeader = `
     default-src 'self';
@@ -18,7 +10,7 @@ const cspHeader = `
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
-    connect-src 'self' https://*.supabase.co http://localhost:3000 wss://*.supabase.co;
+    connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.cloudconvert.com https://api.cloudconvert.com;
 `
 
 const nextConfig: NextConfig = {
@@ -63,8 +55,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(withPWA(nextConfig), {
-  silent: true,
-  org: "pdfhub",
-  project: "frontend",
-});
+export default nextConfig;

@@ -41,7 +41,7 @@ export function Footer() {
             <h4 className="font-semibold text-text-primary mb-4">Optimize PDF</h4>
             <ul className="space-y-3">
               <li><Link href="/tools/compress-pdf" className="text-text-secondary hover:text-primary text-[14px]">Compress PDF</Link></li>
-              <li><Link href="/tools/ocr-pdf" className="text-text-secondary hover:text-primary text-[14px]">OCR PDF</Link></li>
+              <li><Link href="/tools/jpg-to-pdf" className="text-text-secondary hover:text-primary text-[14px]">JPG to PDF</Link></li>
               <li><Link href="/tools/watermark-pdf" className="text-text-secondary hover:text-primary text-[14px]">Watermark</Link></li>
             </ul>
           </div>

@@ -53,43 +53,43 @@ export default function AdminDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Worker Status */}
+        {/* Platform Status */}
         <Card className="p-6 col-span-1 border-0 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-semibold text-lg text-slate-800 mb-4 flex items-center gap-2">
-              <Database className="text-primary" /> Worker Node Status
+              <Database className="text-primary" /> Platform Status
             </h3>
             <div className="space-y-4">
               <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-                <span className="text-slate-500">Status</span>
+                <span className="text-slate-500">Hosting</span>
                 <span className="flex items-center gap-1 text-sm font-semibold text-green-600 bg-green-50 px-2 py-1 rounded">
                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                   {stats?.workerStatus?.status}
+                   Vercel Serverless
                 </span>
               </div>
               <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-                <span className="text-slate-500">Uptime</span>
-                <span className="text-sm font-medium">{Math.floor((stats?.workerStatus?.uptime || 0) / 3600)} Hours</span>
+                <span className="text-slate-500">Cloud API</span>
+                <span className="text-sm font-medium text-slate-700">CloudConvert API</span>
               </div>
               <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-                <span className="text-slate-500">Memory RSS</span>
-                <span className="text-sm font-medium">{((stats?.workerStatus?.memoryUsage?.rss || 0) / 1024 / 1024).toFixed(1)} MB</span>
+                <span className="text-slate-500">Database & Storage</span>
+                <span className="text-sm font-medium text-slate-700">Supabase Cloud</span>
               </div>
               <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-                <span className="text-slate-500">Version</span>
-                <span className="text-sm font-medium">v{stats?.workerStatus?.version}</span>
+                <span className="text-slate-500">Engine</span>
+                <span className="text-sm font-medium">pdf-lib (Browser)</span>
               </div>
             </div>
           </div>
           <div className="mt-6 flex gap-2">
             <div className="flex-1 bg-green-50 text-green-700 text-center py-3 rounded-lg flex flex-col items-center justify-center">
               <CheckCircle2 size={24} className="mb-1" />
-              <span className="text-xl font-bold">{stats?.completedJobs}</span>
+              <span className="text-xl font-bold">{stats?.completedJobs || 0}</span>
               <span className="text-xs">Success</span>
             </div>
             <div className="flex-1 bg-red-50 text-red-700 text-center py-3 rounded-lg flex flex-col items-center justify-center">
               <AlertCircle size={24} className="mb-1" />
-              <span className="text-xl font-bold">{stats?.failedJobs}</span>
+              <span className="text-xl font-bold">{stats?.failedJobs || 0}</span>
               <span className="text-xs">Failed</span>
             </div>
           </div>

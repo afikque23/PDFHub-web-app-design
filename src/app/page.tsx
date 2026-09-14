@@ -53,7 +53,7 @@ export default function Home() {
         <div className="text-center mb-16">
           <h2 className="text-[36px] font-bold text-text-primary mb-4">Most Popular PDF Tools</h2>
           <p className="text-[18px] text-text-secondary max-w-2xl mx-auto">
-            21 tools to convert, compress, and edit PDFs for free. Try it out today!
+            All-in-one tools to convert, compress, merge, split, and edit PDFs with ease. Try it out today!
           </p>
         </div>
 

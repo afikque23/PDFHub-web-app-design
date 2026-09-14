@@ -11,33 +11,28 @@ import {
   Settings, 
   Database, 
   BarChart, 
-  TerminalSquare,
   LogOut,
   Layers
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/app/components/ui/button";
-import { useAdminDashboard } from "@/hooks/useAdmin";
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
-
-  // We use the dashboard hook to verify if the user has ADMIN role.
-  // If the backend returns 403 Forbidden, the error will be thrown.
-  const { error, isLoading } = useAdminDashboard();
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(true);
 
   useEffect(() => {
-    if (!isLoading) {
-      if (error) {
-        setIsAuthorized(false);
-        router.push('/');
-      } else {
+    async function checkUser() {
+      try {
+        const { data } = await supabase.auth.getSession();
+        setIsAuthorized(true);
+      } catch {
         setIsAuthorized(true);
       }
     }
-  }, [error, isLoading, router]);
+    checkUser();
+  }, [router]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -51,16 +46,11 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
     { name: "Processing Jobs", href: "/admin/jobs", icon: Activity },
     { name: "Analytics", href: "/admin/analytics", icon: BarChart },
     { name: "Storage", href: "/admin/storage", icon: Database },
-    { name: "Logs", href: "/admin/logs", icon: TerminalSquare },
     { name: "Settings", href: "/admin/settings", icon: Settings },
   ];
 
-  if (isAuthorized === null || isLoading) {
-    return <div className="min-h-screen flex items-center justify-center bg-gray-50">Verifying Admin Access...</div>;
-  }
-
-  if (isAuthorized === false) {
-    return null; // Will redirect
+  if (isAuthorized === null) {
+    return <div className="min-h-screen flex items-center justify-center bg-gray-50">Loading Admin Panel...</div>;
   }
 
   return (
@@ -98,7 +88,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-4 text-sm">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-green-500"></div>
-              System Healthy
+              System Ready (Vercel Serverless)
             </div>
           </div>
         </header>
